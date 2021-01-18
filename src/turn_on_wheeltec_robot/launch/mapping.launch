@@ -1,0 +1,25 @@
+
+<launch>
+  <arg name="mapping_mode"  default="karto" doc="opt: gmapping, hector,cartographer,karto"/>
+  
+  <!-- 开启机器人底层相关节点  -->
+  <include file="$(find turn_on_wheeltec_robot)/launch/turn_on_wheeltec_robot.launch" />
+  <!-- 开启gmapping建图算法  -->
+  <group if="$(eval mapping_mode == 'gmapping')">
+  <include file="$(find turn_on_wheeltec_robot)/launch/include/algorithm_gmapping.launch" />
+  </group>
+  <!-- 开启hector建图算法  -->
+  <group if="$(eval mapping_mode == 'hector')">
+  <include file="$(find turn_on_wheeltec_robot)/launch/include/algorithm_hector.launch" />
+  </group>  
+   <!-- 开启karto建图算法  -->
+  <group if="$(eval mapping_mode == 'karto')">
+  <include file="$(find turn_on_wheeltec_robot)/launch/include/algorithm_karto.launch" />
+  </group>  
+  <!-- 开启cartographer建图算法  -->
+  <group if="$(eval mapping_mode == 'cartographer')">
+  <include file="$(find cartographer_ros)/launch/demo_revo_lds.launch" />
+  </group>  
+ 
+
+</launch>

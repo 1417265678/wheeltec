@@ -1,0 +1,7 @@
+image: zhb41.pgm
+resolution: 0.025000
+origin: [-18.074457, -20.161351, 0.000000]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+

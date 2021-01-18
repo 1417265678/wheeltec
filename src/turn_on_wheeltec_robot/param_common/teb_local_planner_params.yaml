@@ -1,0 +1,194 @@
+TebLocalPlannerROS:
+
+ odom_topic: /odom_combined
+ #odom_topic: /robot_pose_ekf/odom_combined
+ #map_frame: /odom
+ map_frame: /odom_combined
+
+ # Trajectory
+
+ teb_autosize: True #优化期间允许改变轨迹的时域长度
+ dt_ref: 0.3 #0.45 #局部路径规划的解析度# minimum 0.01
+ dt_hysteresis: 0.045  #0.045 #允许改变的时域解析度的浮动范围， 一般为 dt_ref 的 10% 左右 minimum0.002
+ global_plan_overwrite_orientation: False #覆盖全局路径中局部路径点的朝向
+ max_global_plan_lookahead_dist: 10.0 #考虑优化的全局计划子集的最大长度
+ feasibility_check_no_poses: 15 #检测位姿可到达的时间间隔 minimum 0
+
+ # Robot
+ max_vel_x: 2.0 #2.0#最大x前向速度
+ max_vel_y: 0.0 #最大y前向速度
+# max_vel_x: 0.7
+ max_vel_x_backwards: 0.6 #Maximum translational velocity of the robot for driving backwards
+ max_vel_theta: 1.2  #最大转向角速度
+# max_vel_theta: 1.5
+ acc_lim_x: 1.0  #1.0最大x向加速度
+ #acc_lim_y: 0  #最大y向加速度
+ acc_lim_theta: 2  #2最大角加速度
+
+ # ********************** Carlike robot parameters ********************
+ min_turning_radius: 0.5 #1.2        # Min turning radius of the carlike robot (compute value using a model or adjust with rqt_reconfigure manually)
+ wheelbase: 0.323                 # Wheelbase of our robot
+ cmd_angle_instead_rotvel: False # stage simulator takes the angle instead of the rotvel as input (twist message)
+ footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
+   type: "line"
+   line_start: [0.00, 0.0] # for type "line"
+   #line_end: [0.32, 0.0] # for type "line" senior_akm
+   line_end: [0.32, 0.0] # for type "line" top_akm_bs
+ # GoalTolerance
+
+ xy_goal_tolerance: 0.3   #目标 xy 偏移容忍度  minimum 0.001 maximum 0.2
+ yaw_goal_tolerance: 0.1 #0.1 #目标 角度 偏移容忍度 minimum 0.001 maximum 0.1
+ free_goal_vel:  False   #False  #允许机器人以最大速度驶向目的地
+ complete_global_plan: True
+ # Obstacles
+
+ min_obstacle_dist: 0.5 #0.1 #和障碍物最小距离
+ include_costmap_obstacles: True  #是否将动态障碍物预测为速度模型，
+ costmap_obstacles_behind_robot_dist: 1 #0.5 #限制机器人后方规划时考虑的局部成本地图障碍物
+ obstacle_poses_affected: 10  #障碍物姿态受影响0~30
+ costmap_converter_plugin: "costmap_converter::CostmapToLinesDBSMCCH"  #""
+ costmap_converter_spin_thread: True
+ costmap_converter_rate: 5
+ include_dynamic_obstacles: True 
+ dynamic_obstacle_inflation_dist: 0.9
+ # Optimization
+ # Optimization
+    
+ no_inner_iterations: 2 #5
+ no_outer_iterations: 1 #4
+ optimization_activate: True
+ optimization_verbose: False
+ penalty_epsilon: 0.1
+ obstacle_cost_exponent: 4
+ weight_max_vel_x: 2
+ weight_max_vel_theta: 1
+ weight_acc_lim_x: 1
+ weight_acc_lim_theta: 1
+ weight_kinematics_nh: 1000
+ weight_kinematics_forward_drive: 5 #1
+ weight_kinematics_turning_radius: 1
+ weight_optimaltime: 1 # must be > 0
+ weight_shortest_path: 0
+ weight_obstacle: 100
+ weight_inflation: 0.2
+ weight_dynamic_obstacle: 10 # not in use yet
+ weight_dynamic_obstacle_inflation: 0.2
+ weight_viapoint: 1
+ weight_adapt_factor: 2
+
+ # Homotopy Class Planner
+ enable_homotopy_class_planning: False
+ enable_multithreading: False #True
+ max_number_classes: 4
+ selection_cost_hysteresis: 1.0
+ selection_prefer_initial_plan: 0.95
+ selection_obst_cost_scale: 1.0
+ selection_alternative_time_cost: False
+
+ roadmap_graph_no_samples: 15
+ roadmap_graph_area_width: 5
+ roadmap_graph_area_length_scale: 1.0
+ h_signature_prescaler: 0.5
+ h_signature_threshold: 0.1
+ obstacle_heading_threshold: 0.45
+ switching_blocking_period: 0.0
+ viapoints_all_candidates: True
+ delete_detours_backwards: True
+ max_ratio_detours_duration_best_duration: 3.0
+ visualize_hc_graph: False
+ visualize_with_time_as_z_axis_scale: False
+
+ # Recovery
+ 
+ shrink_horizon_backup: True
+ shrink_horizon_min_duration: 10
+ oscillation_recovery: False
+ oscillation_v_eps: 0.1
+ oscillation_omega_eps: 0.1
+ oscillation_recovery_min_duration: 10
+ oscillation_filter_duration: 10
+
+
+ #not akerman
+# TebLocalPlannerROS:
+
+#  odom_topic: /odom_combined
+#  #odom_topic: /robot_pose_ekf/odom_combined
+#  #map_frame: /odom
+#  map_frame: /odom_combined
+
+#  # Trajectory
+
+#  teb_autosize: True #优化期间允许改变轨迹的时域长度
+#  dt_ref: 0.45 #局部路径规划的解析度# minimum 0.01
+#  dt_hysteresis: 0.1 #允许改变的时域解析度的浮动范围， 一般为 dt_ref 的 10% 左右 minimum0.002
+#  global_plan_overwrite_orientation: True #覆盖全局路径中局部路径点的朝向
+#  max_global_plan_lookahead_dist: 3.0 #考虑优化的全局计划子集的最大长度
+#  feasibility_check_no_poses: 5 #检测位姿可到达的时间间隔 minimum 0
+
+#  # Robot
+#  max_vel_x: 0.3 #最大x前向速度
+#  max_vel_y: 0.3 #最大y前向速度
+# # max_vel_x: 0.7
+#  max_vel_x_backwards: 0.35 #Maximum translational velocity of the robot for driving backwards
+#  max_vel_theta: 1.0  #最大转向角速度
+# # max_vel_theta: 1.5
+#  acc_lim_x: 0.15  #最大x向加速度
+#  acc_lim_y: 0.15  #最大y向加速度
+#  acc_lim_theta: 0.20  #最大角加速度
+#  min_turning_radius: 0.0  #车类机器人的最小转弯半径
+#  footprint_model: #"line" # types: "point", "circular", "two_circles", "line", "polygon"
+#  #radius: 0.12 # for type "circular"
+
+# footprint: [[-0.29, -0.27], [-0.29, 0.27],[0.29,0.27],[0.29, -0.27]]  # 机器人形状
+
+#  # GoalTolerance
+
+#  xy_goal_tolerance: 0.15   #目标 xy 偏移容忍度  minimum 0.001 maximum 0.2
+#  yaw_goal_tolerance: 0.1 #目标 角度 偏移容忍度 minimum 0.001 maximum 0.1
+#  free_goal_vel: False  #允许机器人以最大速度驶向目的地
+
+#  # Obstacles
+
+#  min_obstacle_dist: 0.30 #和障碍物最小距离
+#  include_costmap_obstacles: True  #是否将动态障碍物预测为速度模型，
+#  costmap_obstacles_behind_robot_dist: 1.0  #限制机器人后方规划时考虑的局部成本地图障碍物
+#  obstacle_poses_affected: 7   #障碍物姿态受影响0~30
+#  costmap_converter_plugin: ""
+#  costmap_converter_spin_thread: True
+#  costmap_converter_rate: 5
+
+#  # Optimization
+
+#  no_inner_iterations: 5  #被外循环调用后内循环执行优化次数
+#  no_outer_iterations: 4  #执行的外循环的优化次数
+#  optimization_activate: True  #激活优化，
+#  optimization_verbose: False #打印优化过程详情
+#  penalty_epsilon: 0.1 #对于硬约束近似，在惩罚函数中添加安全范围
+#  weight_max_vel_x: 1 #最大x速度权重0~2
+#  weight_max_vel_y: 1 #最大y速度权重0~2
+#  weight_max_vel_theta: 1  #最大w速度权重0~1
+#  weight_acc_lim_x: 1  #最大x 加速度权重0~1
+#  weight_acc_lim_y: 1  #最大y 加速度权重0~1
+#  weight_acc_lim_theta: 1 #最大w 加速度权重 0~1
+#  weight_kinematics_nh: 1 #满足非完整运动学的最优权重
+#  weight_kinematics_forward_drive: 1   #优化过程中，迫使机器人只选择前进方向，差速轮适用
+#  weight_kinematics_turning_radius: 1 #优化过程中，车型机器人的最小转弯半径的权重
+#  weight_optimaltime: 1  #优化过程中，基于轨迹的时间上的权重，
+#  weight_obstacle: 50  #优化过程中，和障碍物最小距离的权重，0~50
+#  weight_dynamic_obstacle: 10 # not in use yet  优化过程中，和动态障碍物最小距离的权重 0~50
+#  selection_alternative_time_cost: False # not in use yet
+
+#  # Homotopy Class Planner
+
+#  enable_homotopy_class_planning: False
+#  enable_multithreading: True  #允许多线程并行处理
+#  simple_exploration: False
+#  max_number_classes: 4 #允许的线程数
+#  roadmap_graph_no_samples: 15  #指定为创建路线图而生成的样本数
+#  roadmap_graph_area_width: 5  #指定在开始和目标之间生成采样的区域的宽度[m]
+#  h_signature_prescaler: 0.5  #标度障碍物的数量
+#  h_signature_threshold: 0.1
+#  obstacle_keypoint_offset: 0.1
+#  obstacle_heading_threshold: 0.45  #障碍物前进阈值
+#  visualize_hc_graph: False #可视化为探索新同伦类而创建的图

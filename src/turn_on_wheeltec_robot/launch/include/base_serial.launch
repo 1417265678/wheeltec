@@ -1,0 +1,15 @@
+<launch>
+  <!--打开节点wheeltec_robot，初始化串口等操作-->
+  <node pkg="turn_on_wheeltec_robot" type="wheeltec_robot_node" name="wheeltec_robot" output="screen">
+    <param name="usart_port_name"    type="string" value="/dev/wheeltec_controller"/>  
+    <param name="serial_baud_rate"   type="int"    value="115200"/>
+    <param name="robot_frame_id"     type="string" value="base_footprint"/>
+    <param name="smoother_cmd_vel"   type="string" value="smoother_cmd_vel"/> 
+    <param name="product_number"   type="int"    value="0"/>
+  </node>
+    <node pkg="turn_on_wheeltec_robot" type="cmd_vel_to_ackermann_drive.py" name="cmd2ackermann" output="screen">
+  </node>
+</launch>
+
+
+

@@ -1,0 +1,35 @@
+<launch>
+	  <!-- Arguments参数 -->
+  <arg name="car_mode"  default="senior_akm" doc="opt: senior_akm, top_akm_bs, top_akm_dl"/>
+
+  <!-- car_mode and params  senior_akm-->
+<group if="$(eval car_mode == 'senior_akm')">
+ <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_senior_akm/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_senior_akm/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/move_base_params.yaml" command="load" />
+
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/base_global_planner_param.yaml" command="load" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/teb_local_planner_params.yaml" command="load" />
+  </node>
+  </group>
+
+    <!-- car_mode and params  top_akm_bs-->
+<group if="$(eval car_mode == 'top_akm_bs')">
+ <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_top_akm_bs/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_top_akm_bs/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/move_base_params.yaml" command="load" />
+
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/base_global_planner_param.yaml" command="load" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/teb_local_planner_params.yaml" command="load" />
+  </node>
+  </group>
+
+</launch>
+
+

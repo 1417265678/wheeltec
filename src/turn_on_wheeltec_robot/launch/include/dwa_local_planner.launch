@@ -1,0 +1,42 @@
+<launch>
+	  <!-- Arguments参数 -->
+  <arg name="car_mode"  default="four_wheel_diff_bs" doc="opt: top_dff, four_wheel_diff_bs,four_wheel_diff_dl"/>
+    <!-- car_mode and params  top_dff-->
+  <group if="$(eval car_mode == 'top_dff')">
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_top_diff/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_top_diff/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/move_base_params.yaml" command="load" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/dwa_local_planner_params.yaml" command="load" />
+  </node>
+  </group>
+    <!-- car_mode and params  four_wheel_diff_bs-->
+  <group if="$(eval car_mode == 'four_wheel_diff_bs')">
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_four_wheel_diff_bs/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_four_wheel_diff_bs/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/move_base_params.yaml" command="load" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/dwa_local_planner_params.yaml" command="load" />
+  </node>
+  </group>
+    <!-- car_mode and params  four_wheel_diff_dl-->
+    <group if="$(eval car_mode == 'four_wheel_diff_dl')">
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_four_wheel_diff_dl/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_four_wheel_diff_dl/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/move_base_params.yaml" command="load" />
+    <rosparam file="$(find turn_on_wheeltec_robot)/param_common/dwa_local_planner_params.yaml" command="load" />
+  </node>
+  </group>
+
+  </launch>
+
+
+
+
